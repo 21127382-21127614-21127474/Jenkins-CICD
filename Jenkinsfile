@@ -14,9 +14,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                script {
-                    dockerImage = docker.build registry
-                }
+                sh 'docker build -t my-nginx .'
             }
         }
         stage('Push') {
@@ -28,5 +26,11 @@ pipeline {
                 }
             }
         }
+        stage('Deploy') {
+            steps {
+                sh 'docker run -d -p 3000:80 --name my-nginx-container my-nginx'
+            }
+        }
     }
 }
+        
