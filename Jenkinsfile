@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         dockerImage = ''
-        registry = '211273822112761421127474/jenkins-docker-hub'
+        registry = '211273822112761421127474/crypto-site-nginx'
         registryCredential = 'dockerhub'
     }
     stages {
@@ -14,7 +14,9 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'docker build -t my-nginx .'
+                script {
+                    dockerImage = docker.build registry
+                }
             }
         }
         stage('Push') {
@@ -28,7 +30,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'docker run -d -p 3000:80 --name my-nginx-container my-nginx'
+                sh 'docker run -d -p 3000:80 --name my-nginx-container crypto-site-nginx'
             }
         }
     }
