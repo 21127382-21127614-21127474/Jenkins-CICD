@@ -29,10 +29,12 @@ pipeline {
             }
         }
         stage('Deploy') {
-            withDockerRegistry(credentialsId: 'dockerhub', url: 'https://index.docker.io/v1/') {
-                sh 'docker run -d -p 3000:80 --name my-nginx-container crypto-site-nginx'
+            steps {
+                withDockerRegistry(credentialsId: 'dockerhub', url: 'https://index.docker.io/v1/') {
+                    sh 'docker run -d -p 3000:80 --name my-nginx-container crypto-site-nginx'
+                }
             }
-            
+
         }
     }
 }
