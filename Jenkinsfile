@@ -31,7 +31,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 withDockerRegistry(credentialsId: 'dockerhub', url: 'https://index.docker.io/v1/') {
-                    sh 'docker run -d -p 3000:80 --name my-nginx-container crypto-site-nginx'
+                    sh 'docker run -d -p 3000:80 --name my-nginx-container 211273822112761421127474/crypto-site-nginx'
                 }
             }
 
