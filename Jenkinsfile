@@ -1,6 +1,5 @@
 pipeline {
     agent any
-
     environment {
         dockerImage = ''
         registry = '211273822112761421127474/crypto-site-nginx'
@@ -28,7 +27,6 @@ pipeline {
                 }
             }
         }
-
         stage('Deploy') {
             steps {
                 withDockerRegistry(credentialsId: 'dockerhub', url: 'https://index.docker.io/v1/') {
@@ -41,7 +39,6 @@ pipeline {
                 }
             }
         }
-
         stage('Cleaning up') {
             steps{
                 sh "docker rmi $registry:$BUILD_NUMBER"
@@ -49,4 +46,3 @@ pipeline {
         }
     }
 }
-        
