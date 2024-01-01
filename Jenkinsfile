@@ -39,7 +39,7 @@ pipeline {
                         if docker ps | grep -q my-nginx-container; then
                             docker rm -f my-nginx-container
                         fi
-                        docker run -d -p 4000:80 --name my-nginx-container $registry:$BUILD_NUMBER
+                        docker run -d -p 4000:80 --name my-nginx-container $registry
                     """
                 }
             }
