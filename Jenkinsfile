@@ -11,5 +11,23 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/21127382-21127614-21127474/Jenkins-CICD.git'
             }
         }
+
+        stage('Build') {
+            steps {
+                script {
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                }
+            }
+        }
+        
+        stage('Push') {
+            steps {
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
     }
 }
