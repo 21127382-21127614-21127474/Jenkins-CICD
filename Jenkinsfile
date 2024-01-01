@@ -35,12 +35,12 @@ pipeline {
         stage('Deploy') {
             steps {
                 withDockerRegistry(credentialsId: 'dockerhub', url: 'https://index.docker.io/v1/') {
-                    sh '''
+                    sh """
                         if docker ps | grep -q my-nginx-container; then
                             docker rm -f my-nginx-container
                         fi
-                        docker run -d -p 4000:80 --name my-nginx-container 211273822112761421127474/crypto-site-nginx
-                    '''
+                        docker run -d -p 4000:80 --name my-nginx-container $registry:$BUILD_NUMBER
+                    """
                 }
             }
         }
